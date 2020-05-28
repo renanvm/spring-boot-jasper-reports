@@ -1,3 +1,3 @@
 JasperReports with Spring Boot
 
-[Tutorial reference]( https://www.baeldung.com/spring-jasper)
+[Reference guide]( https://www.baeldung.com/spring-jasper)
