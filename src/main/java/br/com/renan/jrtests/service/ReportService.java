@@ -1,6 +1,7 @@
 package br.com.renan.jrtests.service;
 
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.*;
@@ -20,18 +21,6 @@ public class ReportService {
 
     @Autowired
     DataSource dataSource;
-
-    /*public void compileReport() {
-        InputStream employeeReportStream
-                = getClass().getResourceAsStream("/relatorios/employeeReport.jrxml");
-        JasperReport jasperReport
-                = null;
-        try {
-            jasperReport = JasperCompileManager.compileReport(employeeReportStream);
-        } catch (JRException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public InputStream getInputStream() {
         InputStream employeeReportStream
@@ -68,6 +57,19 @@ public class ReportService {
         exporter.setConfiguration(reportConfig);
         exporter.exportReport();
         byte[] fileContent = Files.readAllBytes(xls.toPath());
+        return new ByteArrayResource(fileContent);
+    }
+
+    public ByteArrayResource exportReportToCSV(InputStream targetStream, Map parameters) throws SQLException, JRException, IOException {
+        JasperReport jasperReport = JasperCompileManager.compileReport(targetStream);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+        JRCsvExporter exporter = new JRCsvExporter();
+        ByteArrayOutputStream xlsReport = new ByteArrayOutputStream();
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        File csv = File.createTempFile("output.", ".csv");
+        exporter.setExporterOutput(new SimpleWriterExporterOutput(csv));
+        exporter.exportReport();
+        byte[] fileContent = Files.readAllBytes(csv.toPath());
         return new ByteArrayResource(fileContent);
     }
 }
