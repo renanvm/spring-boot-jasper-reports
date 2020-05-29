@@ -1,7 +1,7 @@
 package br.com.renan.jrtests.controller;
 
 
-import br.com.renan.jrtests.service.ReportService;
+import br.com.renan.jrtests.service.EmployeeReportService;
 import net.sf.jasperreports.engine.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
@@ -15,12 +15,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/report")
-public class ReportController {
+public class EmployeeReportController {
 
-    private ReportService reportService;
+    private EmployeeReportService employeeReportService;
 
-    public ReportController(ReportService reportService) {
-        this.reportService = reportService;
+    public EmployeeReportController(EmployeeReportService employeeReportService) {
+        this.employeeReportService = employeeReportService;
     }
 
     @GetMapping("/pdf")
@@ -30,7 +30,7 @@ public class ReportController {
         headers.set("Content-Disposition", "attachment; filename=test.pdf");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", "Employee Report");
-        ByteArrayResource byteArrayResource = reportService.exportReportToPDF(reportService.getInputStream(), parameters, reportService.getEmployees());
+        ByteArrayResource byteArrayResource = employeeReportService.exportReportToPDF(employeeReportService.getInputStream(), parameters, employeeReportService.getEmployees());
         return new ResponseEntity<>(byteArrayResource, headers, HttpStatus.OK);
     }
 
@@ -41,7 +41,7 @@ public class ReportController {
         headers.set("Content-Disposition", "attachment; filename=test.xls");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", "Employee Report");
-        ByteArrayResource byteArrayResource = reportService.exportReportToXLS(reportService.getInputStream(), parameters, reportService.getEmployees());
+        ByteArrayResource byteArrayResource = employeeReportService.exportReportToXLS(employeeReportService.getInputStream(), parameters, employeeReportService.getEmployees());
         return new ResponseEntity<>(byteArrayResource, headers, HttpStatus.OK);
     }
 
@@ -52,7 +52,7 @@ public class ReportController {
         headers.set("Content-Disposition", "attachment; filename=test.csv");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", "Employee Report");
-        ByteArrayResource byteArrayResource = reportService.exportReportToCSV(reportService.getInputStream(), parameters, reportService.getEmployees());
+        ByteArrayResource byteArrayResource = employeeReportService.exportReportToCSV(employeeReportService.getInputStream(), parameters, employeeReportService.getEmployees());
         return new ResponseEntity<>(byteArrayResource, headers, HttpStatus.OK);
     }
 
