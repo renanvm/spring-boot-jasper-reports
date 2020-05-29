@@ -42,10 +42,10 @@ public class ReportController {
         headers.setContentType(MediaType.asMediaType(MimeType.valueOf("application/vnd.ms-excel")));
         headers.set("Content-Disposition", "attachment; filename=test.xls");
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("title", "Employee Report");
-        parameters.put("minSalary", 15000.0);
-        parameters.put("condition", " LAST_NAME ='Smith' ORDER BY FIRST_NAME");
-        ByteArrayResource byteArrayResource = reportService.exportReportToXLS(reportService.getInputStream(), parameters);
+        //parameters.put("title", "Employee Report");
+        //parameters.put("minSalary", 15000.0);
+        //parameters.put("condition", " LAST_NAME ='Smith' ORDER BY FIRST_NAME");
+        ByteArrayResource byteArrayResource = reportService.exportReportToXLS(reportService.getInputStream(), parameters, reportService.getEmployees());
         return new ResponseEntity<>(byteArrayResource, headers, HttpStatus.OK);
     }
 

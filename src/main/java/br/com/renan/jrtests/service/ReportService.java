@@ -1,6 +1,9 @@
 package br.com.renan.jrtests.service;
 
+import br.com.renan.jrtests.model.Employee;
+import br.com.renan.jrtests.repository.EmployeeRepository;
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
@@ -13,7 +16,7 @@ import javax.sql.DataSource;
 import java.io.*;
 import java.nio.file.Files;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -21,6 +24,9 @@ public class ReportService {
 
     @Autowired
     DataSource dataSource;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     public InputStream getInputStream() {
         InputStream employeeReportStream
@@ -44,9 +50,11 @@ public class ReportService {
         return new ByteArrayResource(fileContent);
     }
 
-    public ByteArrayResource exportReportToXLS(InputStream targetStream, Map parameters) throws SQLException, JRException, IOException {
+    public ByteArrayResource exportReportToXLS(InputStream targetStream, Map parameters, List dataList) throws SQLException, JRException, IOException {
         JasperReport jasperReport = JasperCompileManager.compileReport(targetStream);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataList);
+       // JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
         JRXlsxExporter exporter = new JRXlsxExporter();
         ByteArrayOutputStream xlsReport = new ByteArrayOutputStream();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
@@ -71,6 +79,10 @@ public class ReportService {
         exporter.exportReport();
         byte[] fileContent = Files.readAllBytes(csv.toPath());
         return new ByteArrayResource(fileContent);
+    }
+
+    public List<Employee> getEmployees(){
+        return this.employeeRepository.findAll();
     }
 }
 

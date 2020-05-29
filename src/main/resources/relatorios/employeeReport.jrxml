@@ -1,47 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="employeeReport" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20"
-              topMargin="20" bottomMargin="20">
-    <parameter name="title" class="java.lang.String" isForPrompting="false"/>
-    <parameter name="condition" class="java.lang.String" isForPrompting="false">
-        <defaultValueExpression><![CDATA[" 1 = 1"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="minSalary" class="java.lang.Double" isForPrompting="false"/>
-    <queryString>
-        <![CDATA[SELECT * FROM EMPLOYEE WHERE SALARY >= $P{minSalary} AND $P!{condition}]]>
-    </queryString>
-    <field name="FIRST_NAME" class="java.lang.String"/>
-    <field name="LAST_NAME" class="java.lang.String"/>
-    <field name="SALARY" class="java.lang.Double"/>
-    <field name="ID" class="java.lang.Integer"/>
-    <title>
-        <band height="20" splitType="Stretch">
-            <textField>
-                <reportElement x="238" y="0" width="100" height="20"/>
-                <textElement/>
-                <textFieldExpression class="java.lang.String"><![CDATA[$P{title}]]></textFieldExpression>
-            </textField>
-        </band>
-    </title>
-    <detail>
-        <band height="47" splitType="Stretch">
-            <textField>
-                <reportElement x="0" y="0" width="100" height="20"/>
-                <textElement/>
-                <textFieldExpression class="java.lang.String"><![CDATA[$F{FIRST_NAME}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="100" y="0" width="100" height="20"/>
-                <textElement/>
-                <textFieldExpression class="java.lang.String"><![CDATA[$F{LAST_NAME}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="200" y="0" width="100" height="20"/>
-                <textElement/>
-                <textFieldExpression class="java.lang.String"><![CDATA[$F{SALARY}]]></textFieldExpression>
-            </textField>
-        </band>
-    </detail>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employeeReport" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f15a93c8-24d8-4b6b-a285-6e8deaa20d33">
+	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="condition" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[" 1 = 1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="minSalary" class="java.lang.Double" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="FIRST_NAME" class="java.lang.String"/>
+	<field name="LAST_NAME" class="java.lang.String"/>
+	<field name="SALARY" class="java.lang.Double"/>
+	<field name="ID" class="java.lang.Integer"/>
+	<title>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="238" y="0" width="100" height="20" uuid="c211e4bf-4503-4534-9e6c-753debb4861d"/>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="d208c050-b93c-4a9c-a668-81c6e98c3d37"/>
+				<textFieldExpression><![CDATA[$F{FIRST_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="dc347dcb-d2c5-4ec0-b39a-a43db6fe50dd"/>
+				<textFieldExpression><![CDATA[$F{LAST_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="f128ff76-5e18-4b89-ae98-13174854b03a"/>
+				<textFieldExpression><![CDATA[$F{SALARY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
 </jasperReport>
