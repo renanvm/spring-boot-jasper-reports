@@ -30,9 +30,7 @@ public class ReportController {
         headers.set("Content-Disposition", "attachment; filename=test.pdf");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", "Employee Report");
-        parameters.put("minSalary", 15000.0);
-        parameters.put("condition", " LAST_NAME ='Smith' ORDER BY FIRST_NAME");
-        ByteArrayResource byteArrayResource = reportService.exportReportToPDF(reportService.getInputStream(), parameters);
+        ByteArrayResource byteArrayResource = reportService.exportReportToPDF(reportService.getInputStream(), parameters, reportService.getEmployees());
         return new ResponseEntity<>(byteArrayResource, headers, HttpStatus.OK);
     }
 
@@ -42,9 +40,7 @@ public class ReportController {
         headers.setContentType(MediaType.asMediaType(MimeType.valueOf("application/vnd.ms-excel")));
         headers.set("Content-Disposition", "attachment; filename=test.xls");
         Map<String, Object> parameters = new HashMap<>();
-        //parameters.put("title", "Employee Report");
-        //parameters.put("minSalary", 15000.0);
-        //parameters.put("condition", " LAST_NAME ='Smith' ORDER BY FIRST_NAME");
+        parameters.put("title", "Employee Report");
         ByteArrayResource byteArrayResource = reportService.exportReportToXLS(reportService.getInputStream(), parameters, reportService.getEmployees());
         return new ResponseEntity<>(byteArrayResource, headers, HttpStatus.OK);
     }
@@ -56,9 +52,7 @@ public class ReportController {
         headers.set("Content-Disposition", "attachment; filename=test.csv");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", "Employee Report");
-        parameters.put("minSalary", 15000.0);
-        parameters.put("condition", " LAST_NAME ='Smith' ORDER BY FIRST_NAME");
-        ByteArrayResource byteArrayResource = reportService.exportReportToCSV(reportService.getInputStream(), parameters);
+        ByteArrayResource byteArrayResource = reportService.exportReportToCSV(reportService.getInputStream(), parameters, reportService.getEmployees());
         return new ResponseEntity<>(byteArrayResource, headers, HttpStatus.OK);
     }
 
