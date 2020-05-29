@@ -34,9 +34,11 @@ public class ReportService {
         return employeeReportStream;
     }
 
-    public ByteArrayResource exportReportToPDF(InputStream targetStream, Map parameters) throws SQLException, JRException, IOException {
+    public ByteArrayResource exportReportToPDF(InputStream targetStream, Map parameters, List dataList) throws SQLException, JRException, IOException {
         JasperReport jasperReport = JasperCompileManager.compileReport(targetStream);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataList);
+        //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
         JRPdfExporter exporter = new JRPdfExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         File pdf = File.createTempFile("output.", ".pdf");
@@ -68,9 +70,11 @@ public class ReportService {
         return new ByteArrayResource(fileContent);
     }
 
-    public ByteArrayResource exportReportToCSV(InputStream targetStream, Map parameters) throws SQLException, JRException, IOException {
+    public ByteArrayResource exportReportToCSV(InputStream targetStream, Map parameters, List dataList) throws SQLException, JRException, IOException {
         JasperReport jasperReport = JasperCompileManager.compileReport(targetStream);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataList);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
+        //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
         JRCsvExporter exporter = new JRCsvExporter();
         ByteArrayOutputStream xlsReport = new ByteArrayOutputStream();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
