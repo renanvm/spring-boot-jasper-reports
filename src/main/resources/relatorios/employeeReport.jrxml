@@ -9,10 +9,10 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="FIRST_NAME" class="java.lang.String"/>
-	<field name="LAST_NAME" class="java.lang.String"/>
-	<field name="SALARY" class="java.lang.Double"/>
-	<field name="ID" class="java.lang.Integer"/>
+	<field name="firstName" class="java.lang.String"/>
+	<field name="lastName" class="java.lang.String"/>
+	<field name="salary" class="java.lang.Double"/>
+	<field name="id" class="java.lang.Integer"/>
 	<title>
 		<band height="20" splitType="Stretch">
 			<textField>
@@ -25,15 +25,15 @@
 		<band height="47" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="100" height="20" uuid="d208c050-b93c-4a9c-a668-81c6e98c3d37"/>
-				<textFieldExpression><![CDATA[$F{FIRST_NAME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="100" y="0" width="100" height="20" uuid="dc347dcb-d2c5-4ec0-b39a-a43db6fe50dd"/>
-				<textFieldExpression><![CDATA[$F{LAST_NAME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="200" y="0" width="100" height="20" uuid="f128ff76-5e18-4b89-ae98-13174854b03a"/>
-				<textFieldExpression><![CDATA[$F{SALARY}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
